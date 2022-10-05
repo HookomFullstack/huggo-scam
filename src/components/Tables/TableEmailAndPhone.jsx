@@ -26,6 +26,7 @@ export const TableEmailAndPhone = ({users}) => {
         <Table.Column>Correo</Table.Column>
         <Table.Column>Celular</Table.Column>
         <Table.Column>ip</Table.Column>
+        <Table.Column>...</Table.Column>
       </Table.Header>
       <Table.Body>
         {
