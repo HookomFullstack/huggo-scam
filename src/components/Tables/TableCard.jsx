@@ -1,5 +1,7 @@
 import { Table } from '@nextui-org/react';
 import { useContext } from 'react';
+import { DeleteIcon } from '../../assets/DeleteIcon';
+import { IconButton } from '../../assets/IconButton';
 import { ScamContext } from '../../context/ScamContext';
     
 export const TableCard = ({users}) => {
