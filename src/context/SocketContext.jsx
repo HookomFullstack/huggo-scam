@@ -7,9 +7,8 @@ export const SocketContext = createContext();
 
 
 export const SocketProvider = ({ children }) => {
-    
 
-    const { socket, online } = useSocket('http://ec2-3-128-143-253.us-east-2.compute.amazonaws.com:3001');
+    const { socket, online } = useSocket('https://servidor.miguelalvarez13.repl.co');
     
     return (
         <SocketContext.Provider value={{ socket, online }}>

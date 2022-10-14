@@ -59,9 +59,9 @@ export const TableCard = ({users}) => {
         total={
           users.length >= 10 ? 
             Number.isInteger(users.length / 10) === false 
-            ? users.length / 10 + 1
-            : users.length / 10
-          : 1
+            ? Math.round(users.length / 10 + 1)
+            : Math.round(users.length / 10 )
+           : 1
         }
         initialPage={1}
       />
