@@ -29,7 +29,13 @@ const typeTable = (filteredType, users) => {
 
 export const App = () => {
 
-  const {selected, users, filteredType, notification, setNotification} = useContext(ScamContext);
+  const {
+    selected, 
+    users, 
+    filteredType, 
+    notification, 
+    setNotification,
+  } = useContext(ScamContext);
   const { online } = useContext( SocketContext );
 
 
@@ -44,8 +50,9 @@ export const App = () => {
           <BtnDownloadTxt/>
           <CheckBoxUtil />
         </div>
+        
         {
-          notification == true ?
+          notification === true ?
           (
             <>
               <ReactHowler

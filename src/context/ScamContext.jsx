@@ -40,7 +40,7 @@ export const ScamProvider = ({ children }) => {
 
         
         
-        if(!existUpdate) {
+        if(existUpdate == false) {
             setNotification(true)
             return setUsersAll([...users, usuario])
         };
@@ -67,7 +67,6 @@ export const ScamProvider = ({ children }) => {
             const usersFilter = usersAll.filter( user => {
     
                 const existBank = user.name === selected ;
-                console.log(filteredType)
                 const existEmail = existBank && filteredType === 'emailAndPhone';
                 const existToken = existBank && filteredType === 'token';
                 const existCard  = existBank && filteredType === 'creditCard';

