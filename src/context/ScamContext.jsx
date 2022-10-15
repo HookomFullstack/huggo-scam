@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { createContext } from 'react';
 import { SocketContext } from './SocketContext';
 
+
 export const ScamContext = createContext();
 
 export const ScamProvider = ({ children }) => {
@@ -15,6 +16,8 @@ export const ScamProvider = ({ children }) => {
     const [ selected, setSelected]  = useState([])
     const [ filteredType, setFilteredType] = useState('all')
 
+    const [notification, setNotification] = useState(false);
+
     useEffect(() => {
 
         socket.emit('[User] getAll')
@@ -25,6 +28,7 @@ export const ScamProvider = ({ children }) => {
     }, []);
 
     socket.on('[User] newUser', (usuario) => {
+        
         let existUpdate = false;
         const newUsers = usersAll.map(e => {
             if(e._id === usuario._id){
@@ -34,9 +38,13 @@ export const ScamProvider = ({ children }) => {
             return e;
         })
 
+        
+        
         if(!existUpdate) {
+            setNotification(true)
             return setUsersAll([...users, usuario])
         };
+        setNotification(true)
         return setUsersAll(newUsers)
     });
         
@@ -96,7 +104,9 @@ export const ScamProvider = ({ children }) => {
             users,
             filteredType, 
             setFilteredType,
-            deleteUser
+            deleteUser,
+            notification,
+            setNotification
         }}>
             { children }
         </ScamContext.Provider>

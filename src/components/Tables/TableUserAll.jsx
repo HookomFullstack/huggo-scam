@@ -1,3 +1,4 @@
+import { EyeIcon } from '@heroicons/react/20/solid';
 import { Table } from '@nextui-org/react';
 import { useContext } from 'react';
 import { DeleteIcon } from '../../assets/DeleteIcon';
