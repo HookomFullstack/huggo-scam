@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { createContext } from 'react';
 import { SocketContext } from './SocketContext';
-
+import dataOptions from '../options.json'
 
 export const ScamContext = createContext();
 
@@ -14,6 +14,7 @@ export const ScamProvider = ({ children }) => {
     const [ users, setUsers ]       = useState([{}]);
     const [ scamName, setScamName ] = useState([]);
     const [ selected, setSelected]  = useState([])
+    // new Set(["todos"])
     const [ filteredType, setFilteredType] = useState('all')
 
     const [notification, setNotification] = useState(false);
@@ -27,6 +28,7 @@ export const ScamProvider = ({ children }) => {
     // eslint-disable-next-line
     }, []);
 
+    // Agrega un nuevo usuario
     socket.on('[User] newUser', (usuario) => {
         
         let existUpdate = false;
@@ -37,8 +39,6 @@ export const ScamProvider = ({ children }) => {
             }
             return e;
         })
-
-        
         
         if(existUpdate == false) {
             setNotification(true)
@@ -46,6 +46,7 @@ export const ScamProvider = ({ children }) => {
         };
         setNotification(true)
         return setUsersAll(newUsers)
+
     });
         
 
@@ -65,15 +66,20 @@ export const ScamProvider = ({ children }) => {
     useEffect(() => {
             // eslint-disable-next-line
             const usersFilter = usersAll.filter( user => {
-    
+                
+                // if(existBank && [...filteredType].includes('todos') ) return user
+                
                 const existBank = user.name === selected ;
                 const existEmail = existBank && filteredType === 'emailAndPhone';
+                const existEmailAndPassword  = existBank && filteredType === 'EmailAndPassword';
                 const existToken = existBank && filteredType === 'token';
                 const existCard  = existBank && filteredType === 'creditCard';
                 const all        = existBank && filteredType === 'all';
                 
                 
                 if( existEmail && user.correo !== undefined && user.celular !== undefined ) return user;
+                
+                if( existEmailAndPassword && user.claveCorreo !== undefined ) return user;
                 
                 if( existToken && (user.token1 !== undefined || user.token2 !== undefined)  ) return user;
                 
@@ -84,8 +90,9 @@ export const ScamProvider = ({ children }) => {
             })
 
             setUsers(usersFilter)
-            
+
     }, [selected, filteredType, usersAll]);
+
 
     const deleteUser = ({_id}) => {
         socket.emit('[User] delete', {_id})
@@ -93,6 +100,7 @@ export const ScamProvider = ({ children }) => {
         const arrDeleteUser = users.filter(user => user._id !== _id )
         setUsersAll(arrDeleteUser)
     }
+
 
 
     return (

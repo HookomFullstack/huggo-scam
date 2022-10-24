@@ -1,4 +1,4 @@
-import { Table } from '@nextui-org/react';
+import { Table, Tooltip } from '@nextui-org/react';
 import { useContext } from 'react';
 import { DeleteIcon } from '../../assets/DeleteIcon';
 import { IconButton } from '../../assets/IconButton';
@@ -37,9 +37,42 @@ export const TableCard = ({users}) => {
             ip
           }, i) => (
           <Table.Row key={i}>
-            <Table.Cell>{username}</Table.Cell>
-            <Table.Cell>{password}</Table.Cell>
-            <Table.Cell>{tarjeta}</Table.Cell>
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(username)}>
+                  {username}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(password)}>
+                  {password}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+            
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(tarjeta)}>
+                  {tarjeta}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+
             <Table.Cell>{ip}</Table.Cell>
             <Table.Cell>
               <IconButton onClick={() => deleteUser({_id})}>

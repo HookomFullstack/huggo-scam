@@ -1,4 +1,4 @@
-import { Table } from '@nextui-org/react';
+import { Table, Tooltip } from '@nextui-org/react';
 import { useContext } from 'react';
 import { DeleteIcon } from '../../assets/DeleteIcon';
 import { IconButton } from '../../assets/IconButton';
@@ -39,10 +39,56 @@ export const TableEmailAndPhone = ({users}) => {
             ip
           }, i) => (
           <Table.Row key={i}>
-            <Table.Cell>{username}</Table.Cell>
-            <Table.Cell>{password}</Table.Cell>
-            <Table.Cell>{correo}</Table.Cell>
-            <Table.Cell>{celular}</Table.Cell>
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(username)}>
+                  {username}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(password)}>
+                  {password}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+
+            
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(correo)}>
+                  {correo}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+
+
+            <Table.Cell>
+              <Tooltip
+                content={'Copiado!'}
+                trigger={'click'}
+                color={"primary"}
+              >
+                <button onClick={() => navigator.clipboard.writeText(celular)}>
+                  {celular}
+                </button>
+              </Tooltip>
+            </Table.Cell>
+
             <Table.Cell>{ip}</Table.Cell>
             <Table.Cell>
               <IconButton onClick={() => deleteUser({_id})}>

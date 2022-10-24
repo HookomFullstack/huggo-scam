@@ -1,0 +1,8 @@
+{
+    "filteredOptions": {
+        "all": ["Todos", "todos"],
+        "correo": ["Correo", "correo"] 
+    },
+    "buttonOptions": ["exportTxt"],
+    "actions": ["delete", "clickAndCopy"]
+}
