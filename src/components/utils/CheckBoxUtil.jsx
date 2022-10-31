@@ -4,10 +4,13 @@ import { ScamContext } from "../../context/ScamContext";
 
 export const CheckBoxUtil = () =>  {
 
-    const { setFilteredType } = useContext(ScamContext);
+    const { filteredType, setFilteredType } = useContext(ScamContext);
     
 
+    console.log(filteredType)
+
     return (
+        
         <Radio.Group 
             style={{display: 'inline-block'}} 
             orientation="horizontal" 
@@ -26,6 +29,9 @@ export const CheckBoxUtil = () =>  {
             </Radio>
             <Radio size="sm" value="EmailAndPassword" color="primary">
                 Correo y clave
+            </Radio>
+            <Radio size="sm" value="EmailAndPasswordAndTc" color="primary">
+                Correo, clave y tarjeta
             </Radio>
             <Radio size="sm" value="all" color="primary">
                 Todos

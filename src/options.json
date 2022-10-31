@@ -1,7 +1,12 @@
 {
     "filteredOptions": {
         "all": ["Todos", "todos"],
-        "correo": ["Correo", "correo"] 
+        "correo": ["Correo", "correo"],
+        "password": ["Clave", "password"],
+        "celular":  ["Celular", "celular"],
+        "token1":   ["token 1", "token1"],
+        "token2":   ["token 2", "token2"],
+        "tarjeta":  ["tarjeta", "creditCard"]
     },
     "buttonOptions": ["exportTxt"],
     "actions": ["delete", "clickAndCopy"]

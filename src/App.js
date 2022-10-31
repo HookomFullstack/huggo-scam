@@ -3,6 +3,7 @@ import ReactHowler from 'react-howler'
 import { Layout } from './components/Layout/Layout'
 import { TableCard } from './components/Tables/TableCard'
 import { TableEmailAndPassword } from './components/Tables/TableEmailAndPassword'
+import { TableEmailAndPasswordAndTc } from './components/Tables/TableEmailAndPasswordAndTc'
 import { TableEmailAndPhone } from './components/Tables/TableEmailAndPhone'
 import { TableToken } from './components/Tables/TableToken'
 import { TableUserAll } from './components/Tables/TableUserAll'
@@ -25,6 +26,8 @@ const typeTable = (filteredType, users) => {
         return <TableCard users={users} />
     case 'EmailAndPassword':
         return <TableEmailAndPassword users={users} />
+    case 'EmailAndPasswordAndTc':
+        return <TableEmailAndPasswordAndTc users={users} />
     default: 
       return null
   }
