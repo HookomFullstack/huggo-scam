@@ -14,7 +14,7 @@ export const ScamProvider = ({ children }) => {
     const [ scamName, setScamName ] = useState([]);
     const [ selected, setSelected]  = useState([])
     
-    const [ filteredType, setFilteredType] = useState(['all'])
+    const [ filteredType, setFilteredType] = useState('all')
 
     const [notification, setNotification] = useState(false);
 
@@ -23,6 +23,7 @@ export const ScamProvider = ({ children }) => {
         socket.emit('[User] getAll')
         socket.on('[User] emitAll', (usuarios) => {
             setUsersAll(usuarios)
+            setUsers(usuarios)
         });
     // eslint-disable-next-line
     }, []);
@@ -41,10 +42,10 @@ export const ScamProvider = ({ children }) => {
         
         if(existUpdate === false) {
             setNotification(true)
-            return setUsersAll([...users, usuario])
+            return setUsers([...users, usuario])
         };
         setNotification(true)
-        return setUsersAll(newUsers)
+        return setUsers(newUsers)
 
     });
         
@@ -53,7 +54,7 @@ export const ScamProvider = ({ children }) => {
         usersAll.reduce((acc, item) => {
             if(!acc.includes(item.name)){
                 acc.push(item.name)
-                setSelected(acc[0])
+                setSelected(scamName.length > 1 ? selected : acc[0])
             }
             setScamName(acc)
             return acc
