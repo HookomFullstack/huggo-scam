@@ -42,8 +42,10 @@ export const ScamProvider = ({ children }) => {
         
         if(existUpdate === false) {
             setNotification(true)
+            setUsersAll([...usersAll, usuario])
             return setUsers([...users, usuario])
         };
+        setUsersAll([...usersAll, usuario])
         setNotification(true)
         return setUsers(newUsers)
 

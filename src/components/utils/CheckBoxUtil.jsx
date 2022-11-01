@@ -6,9 +6,6 @@ export const CheckBoxUtil = () =>  {
 
     const { filteredType, setFilteredType } = useContext(ScamContext);
     
-
-    console.log(filteredType)
-
     return (
         
         <Radio.Group 
