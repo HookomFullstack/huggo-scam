@@ -1,13 +1,29 @@
 {
-    "filteredOptions": {
-        "all": ["Todos", "todos"],
-        "correo": ["Correo", "correo"],
-        "password": ["Clave", "password"],
-        "celular":  ["Celular", "celular"],
-        "token1":   ["token 1", "token1"],
-        "token2":   ["token 2", "token2"],
-        "tarjeta":  ["tarjeta", "creditCard"]
-    },
-    "buttonOptions": ["exportTxt"],
-    "actions": ["delete", "clickAndCopy"]
+    "tableFiltersOptions": [
+        {
+            "name": "Correo",
+            "nameServer": "correo"
+        }, 
+        {
+            "name": "Clave del correo",
+            "nameServer": "claveCorreo"
+        }, 
+        {
+            "name": "Celular",
+            "nameServer": "celular"
+        }, 
+        {
+            "name": "Token1",
+            "nameServer": "token1"
+        }, 
+        {
+            "name": "Token2",
+            "nameServer": "token2"
+        }, 
+        {
+            "name": "Tarjeta",
+            "nameServer": "tarjeta"
+        }
+    ],
+    "tableHeaderOptions": ["usuario", "clave", "Correo", "Clave del correo", "Celular", "Token1", "Token2", "Tarjeta", "Ip", "..."]
 }

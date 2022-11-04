@@ -10,11 +10,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <SocketProvider>
-        <NextUIProvider>
-            <ScamProvider>
-                <App />
-            </ScamProvider>
-        </NextUIProvider>
+            <NextUIProvider>
+                <ScamProvider>
+                    <App />
+                </ScamProvider>
+            </NextUIProvider>
     </SocketProvider>
 );
 
