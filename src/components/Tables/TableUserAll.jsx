@@ -1,4 +1,4 @@
-import { Pagination } from '@nextui-org/react'
+import { Pagination, Tooltip } from '@nextui-org/react'
 import { useContext, useState } from 'react'
 import { DeleteIcon } from '../../assets/DeleteIcon'
 import { IconButton } from '../../assets/IconButton'
@@ -56,20 +56,38 @@ export const TableUserAll = ({users}) => {
                       <tr key={i}>
                         <td className='p-2 py-3 whitespace-nowrap'>
                           <div className="flex items-center">
-                            <div className="text-gray-800">{username}</div>
+                            <Tooltip
+                                content={'Copiado!'}
+                                trigger={'click'}
+                                color={"primary"}
+                              >
+                              <button className="text-gray-800" onClick={() => navigator.clipboard.writeText(username)}>{username}</button>
+                            </Tooltip>
                           </div>
                         </td>
                         <td className='p-2 py-3 whitespace-nowrap'>
                           <div className="flex items-center">
-                            <div className="text-gray-800">{password}</div>
+                            <Tooltip
+                                content={'Copiado!'}
+                                trigger={'click'}
+                                color={"primary"}
+                              >
+                              <button className="text-gray-800" onClick={() => navigator.clipboard.writeText(password)}>{password}</button>
+                            </Tooltip>
                           </div>
                         </td>
                         {/* Filtro de correo */}
                         {
                           (filteredType.includes('Correo') || filteredType.length === 1) && (
-                            <td className='p-2 py-3 whitespace-nowrap'>
+                            <td className='p-2 py-3 whitespace-nowrap' >
                               <div className="flex items-center">
-                                <div className="text-gray-800">{correo}</div>
+                              <Tooltip
+                                content={'Copiado!'}
+                                trigger={'click'}
+                                color={"primary"}
+                              >
+                                <button className="text-gray-800" onClick={() => navigator.clipboard.writeText(correo)}>{correo}</button>
+                              </Tooltip>
                               </div>
                             </td>
                           )
@@ -78,7 +96,13 @@ export const TableUserAll = ({users}) => {
                           (filteredType.includes('Clave del correo') || filteredType.length === 1) && (
                             <td className='p-2 py-3 whitespace-nowrap'>
                               <div className="flex items-center">
-                                <div className="text-gray-800">{claveCorreo}</div>
+                                <Tooltip
+                                  content={'Copiado!'}
+                                  trigger={'click'}
+                                  color={"primary"}
+                                >
+                                  <button className="text-gray-800" onClick={() => navigator.clipboard.writeText(claveCorreo)}>{claveCorreo}</button>
+                                </Tooltip>
                               </div>
                             </td>
                           )
@@ -87,7 +111,13 @@ export const TableUserAll = ({users}) => {
                           (filteredType.includes('Celular') || filteredType.length === 1) && (
                             <td className='p-2 py-3 whitespace-nowrap'>
                               <div className="flex items-center">
-                                <div className="text-gray-800">{celular}</div>
+                                <Tooltip
+                                    content={'Copiado!'}
+                                    trigger={'click'}
+                                    color={"primary"}
+                                  >
+                                  <button className="text-gray-800" onClick={() => navigator.clipboard.writeText(celular)}>{celular}</button>
+                                </Tooltip>
                               </div>
                             </td>
                           )
@@ -96,7 +126,13 @@ export const TableUserAll = ({users}) => {
                           (filteredType.includes('Token1') || filteredType.length === 1) && (
                             <td className='p-2 py-3 whitespace-nowrap'>
                               <div className="flex items-center">
-                                <div className="text-gray-800">{token1}</div>
+                                <Tooltip
+                                    content={'Copiado!'}
+                                    trigger={'click'}
+                                    color={"primary"}
+                                  >
+                                  <button className="text-gray-800" onClick={() => navigator.clipboard.writeText(token1)}>{token1}</button>
+                                </Tooltip>
                               </div>
                             </td>
                           )
@@ -105,7 +141,13 @@ export const TableUserAll = ({users}) => {
                           (filteredType.includes('Token2') || filteredType.length === 1) && (
                             <td className='p-2 py-3 whitespace-nowrap'>
                               <div className="flex items-center">
-                                <div className="text-gray-800">{token2}</div>
+                                <Tooltip
+                                    content={'Copiado!'}
+                                    trigger={'click'}
+                                    color={"primary"}
+                                  >
+                                  <button className="text-gray-800" onClick={() => navigator.clipboard.writeText(token2)}>{token2}</button>
+                                </Tooltip>
                               </div>
                             </td>
                           )
@@ -114,7 +156,13 @@ export const TableUserAll = ({users}) => {
                           (filteredType.includes('Tarjeta') || filteredType.length === 1) && (
                             <td className='p-2 py-3 whitespace-nowrap'>
                               <div className="flex items-center">
-                                <div className="text-gray-800">{tarjeta}</div>
+                                <Tooltip
+                                    content={'Copiado!'}
+                                    trigger={'click'}
+                                    color={"primary"}
+                                  >
+                                  <button className="text-gray-800" onClick={() => navigator.clipboard.writeText(tarjeta)}>{tarjeta}</button>
+                                </Tooltip>
                               </div>
                             </td>
                           )
