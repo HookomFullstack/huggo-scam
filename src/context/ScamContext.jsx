@@ -15,12 +15,37 @@ export const ScamProvider = ({ children }) => {
     const [ users, setUsers ]       = useState([]);
     const [ scamName, setScamName ] = useState([]);
     const [ selected, setSelected]  = useState([])
-    
+
+    const [deleteActive, setDeleteActive] = useState(0);
+
     const [ filteredType, setFilteredType] = useState(['Todos'])
 
     // TODO: RECUERDA MANTENER LA NOTIFICACION AL AGREGAR UN USUARIO EN EL BANCO SELECCIONADO
     const [notification, setNotification] = useState(false);
 
+
+    const filterUsers = () => {
+        if(filteredType.length > 1 ) {
+            const arrData = options.tableFiltersOptions.map( e => filteredType.includes(e.name) ? e.nameServer : '' ).filter(e => e != '')
+            
+            const usersFiltered = usersAll?.filter( 
+                user => 
+                    Object.keys(user)
+                        .map( data => arrData.includes(data))
+                        .filter( e => e === true).length === arrData.length
+                    && user.name === selected 
+                )
+
+            usersFiltered.length !== 0 && setUsers(usersFiltered);
+        };
+        
+        if(filteredType.length == 1 && selected != undefined) {
+            const userFiltered = usersAll.filter( e => e.name === selected )
+            setUsers(userFiltered)
+        }
+    }
+
+    
     // Obtiene todos los usuarios
     useEffect(() => {
 
@@ -29,10 +54,10 @@ export const ScamProvider = ({ children }) => {
             setUsers(usuarios)
             setUsersAll(usuarios)
         })
-
         
     // eslint-disable-next-line
     }, []);
+
     useEffect(() => {
         socket.on('[User] deleteAllBankEmit', ({bank}) => {
             const newUsersDelete = usersAll.filter(user => user.name != bank)
@@ -46,6 +71,7 @@ export const ScamProvider = ({ children }) => {
                     : selected 
             )
         })
+
         return () => {
             socket.off('[User] deleteAllBankEmit')
         };
@@ -77,24 +103,6 @@ export const ScamProvider = ({ children }) => {
         }
     }, [usersAll])
 
-    useEffect(() => {
-
-        // Filtra los usuarios segun lo seleccionado en el checbox
-        if(filteredType.length > 1 )
-            options.tableFiltersOptions.map( e => {
-                if(filteredType.includes(e.name)) {
-                    const usersFiltered = users?.filter( user => Object.keys(user).includes(e.nameServer) && user.name == selected )
-                    usersFiltered.length !== 0 && setUsers(usersFiltered);
-                }
-            });
-        
-            if(filteredType.length == 1 && selected != undefined) {
-                const userFiltered = usersAll.filter( e => e.name === selected )
-                setUsers(userFiltered)
-            }
-
-        }, [filteredType, usersAll]);
-
     // Agrega un nuevo usuario
     useEffect(() => {
         socket.on('[User] newUser', (usuario) => {
@@ -118,7 +126,10 @@ export const ScamProvider = ({ children }) => {
                     const userFiltered = usersAll.filter( e => e.name === selected )
                     setUsers(userFiltered)
                 }
-                return
+
+                filterUsers();
+                
+                return 
             };
             
             setUsersAll(newUsersAll) 
@@ -129,6 +140,7 @@ export const ScamProvider = ({ children }) => {
                 setUsers(userFiltered)
             }
 
+            filterUsers();
             return
         });   
 
@@ -137,16 +149,18 @@ export const ScamProvider = ({ children }) => {
         }
     }, [socket, selected, usersAll]);
     
+
     useEffect(() => {
         
         if(selected != undefined) {
             const userFiltered = usersAll.filter( e => e.name === selected )
             setUsers(userFiltered)
+            filterUsers();
         }
 
         if(selected == undefined) setUsers([])
 
-    }, [selected, usersAll]);
+    }, [selected, usersAll, filteredType]);
 
     useEffect(() => {
         
@@ -154,29 +168,40 @@ export const ScamProvider = ({ children }) => {
 
     }, [selected]);
 
-    const deleteUser = ({_id}) => {
+    useEffect(() => {
 
-        socket.emit('[User] delete', {_id})
-        const arrDeleteUser = usersAll.filter(user => user._id !== _id )
-        setUsersAll(arrDeleteUser)
 
-    }
-
-    const deleteAllUser = () => {
-
-        socket.emit('[User] deleteAll', {bank: selected})
-        const newUsersDelete = usersAll.filter(user => user.name != selected)
-        setUsersAll(newUsersDelete)
+        if (deleteActive === 1) {
+            socket.emit('[User] deleteAll', {bank: selected})
+            const newUsersDelete = usersAll.filter(user => user.name != selected)
+            setUsersAll(newUsersDelete)
+            
+            setSelected( 
+                scamName == false || scamName.length == 0 
+                ? null 
+                : selected == scamName[0] 
+                    ? scamName[1] 
+                    : scamName[0] 
+            )
+            setDeleteActive(0)
+        }
         
-        setSelected( 
-            scamName == false || scamName.length == 0 
-            ? null 
-            : selected == scamName[0] 
-                ? scamName[1] 
-                : scamName[0] 
-        )
+        if(typeof deleteActive == 'object' ) {
+            const { _id } = deleteActive 
+            console.log(_id)
 
-    }
+            socket.emit('[User] delete', {_id})
+            const arrDeleteUser = usersAll.filter(user => user._id !== _id )
+            setUsersAll(arrDeleteUser)
+            setDeleteActive(0)
+        }
+    
+        return () => {
+            socket.off('[User] deleteAll')
+            socket.off('[User] delete')
+        }
+        
+    }, [socket,  deleteActive]);
 
     return (
         <ScamContext.Provider value={{ 
@@ -186,8 +211,7 @@ export const ScamProvider = ({ children }) => {
             users,
             filteredType, 
             setFilteredType,
-            deleteUser,
-            deleteAllUser,
+            setDeleteActive,
             notification,
             setNotification
         }}>

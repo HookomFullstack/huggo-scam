@@ -4,7 +4,7 @@ import { ScamContext } from '../../context/ScamContext';
 
 export const BtnDownloadTxtAndDelete = () => {
 
-    const {users, deleteAllUser, filteredType, selected} = useContext(ScamContext);
+    const {users, setDeleteActive, filteredType, selected} = useContext(ScamContext);
     
 // ${e.celular != undefined && (filteredType.includes('Celular') || filteredType.length == 1) ? `= celular: ${e.celular} \n` : ''}
     
@@ -24,7 +24,7 @@ ${e.token1 != undefined && (filteredType.includes('Token1') || filteredType.leng
             
             saveAs(blob, `${selected}-${filteredType}-${users.length}.txt`)
     
-            return await deleteAllUser(users[0].name)
+            return await setDeleteActive(1)
         
     }
 

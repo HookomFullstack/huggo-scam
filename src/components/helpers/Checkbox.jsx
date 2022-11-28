@@ -56,7 +56,7 @@ export const Checkbox = ({options}) => {
                                     value={name}
                                     onClick={(e) => checkedFilteredAction({value: e.target.value, checking: e.target.checked})}
                                     id={i}
-                                    checked={filteredType.includes(name) ? true : false}
+                                    defaultChecked={filteredType.includes(name) ? true : false}
                                     className={' checked:bg-red-100 border-2 w-4'}
                                 />
                                 <label className='w-full text-sm' htmlFor={i}>{name}</label>

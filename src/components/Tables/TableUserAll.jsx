@@ -7,7 +7,7 @@ import tableHeader from '../../options.json'
 
 export const TableUserAll = ({users}) => {
 
-  const { deleteUser, filteredType } = useContext(ScamContext);
+  const { setDeleteActive, filteredType } = useContext(ScamContext);
 
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -175,7 +175,7 @@ export const TableUserAll = ({users}) => {
 
                         <td className='p-2 py-3 whitespace-nowrap'>
                           <div className="flex items-center">
-                            <IconButton onClick={() => deleteUser({_id})}>
+                            <IconButton onClick={() => setDeleteActive({_id})}>
                               <DeleteIcon size={18} fill="#FF0080" />
                             </IconButton>
                           </div>
