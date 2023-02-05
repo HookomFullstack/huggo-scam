@@ -25,7 +25,7 @@ export const Checkbox = ({options}) => {
         setClose( e => !e)
         setShow(e => !e)
     };
-
+    
     return (
         <div className='relative' style={{zIndex: '1000000'}}>
 

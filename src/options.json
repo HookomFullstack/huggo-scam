@@ -1,6 +1,11 @@
 {
     "tableFiltersOptions": [
         {
+            "name": "Tipo documento",
+            "nameServer": "typeDocument"
+        }, 
+         
+        {
             "name": "Correo",
             "nameServer": "correo"
         }, 
@@ -29,5 +34,18 @@
             "nameServer": "tarjeta"
         }
     ],
-    "tableHeaderOptions": ["usuario", "clave", "Correo", "Clave del correo", "Celular", "Token1", "Token2", "Tarjeta", "Clave ATM", "Ip", "..."]
+    "tableHeaderOptions": [
+        "usuario", 
+        "clave", 
+        "Tipo documento" , 
+        "Correo", 
+        "Clave del correo", 
+        "Celular", 
+        "Token1", 
+        "Token2", 
+        "Tarjeta", 
+        "Clave ATM", 
+ 
+        
+        "Ip", "..."]
 }

@@ -29,7 +29,10 @@ export const Dashboard = () => {
             <div className='flex flex-col sm:flex-row justify-between items-center mt-10 mb-5 bg-white p-5 rounded shadow gap-5'>
                 <div className='flex flex-col md:flex-row items-center md:items-end gap-4'>
                 <DownboxActions />
-                <CheckBoxUtil />
+                {
+                    users[0]?.name === 'banreservas' ? null : <CheckBoxUtil /> 
+                }
+                
                 </div>
                 {
                 notification === true ?

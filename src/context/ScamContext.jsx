@@ -26,8 +26,7 @@ export const ScamProvider = ({ children }) => {
 
     const filterUsers = () => {
         if(filteredType.length > 1 ) {
-            const arrData = options.tableFiltersOptions.map( e => filteredType.includes(e.name) ? e.nameServer : '' ).filter(e => e != '')
-            
+            let arrData = options.tableFiltersOptions.map( e => filteredType.includes(e.name) ? e.nameServer : '' ).filter(e => e != '').flat()
             const usersFiltered = usersAll?.filter( 
                 user => 
                     Object.keys(user)
@@ -188,7 +187,6 @@ export const ScamProvider = ({ children }) => {
         
         if(typeof deleteActive == 'object' ) {
             const { _id } = deleteActive 
-            console.log(_id)
 
             socket.emit('[User] delete', {_id})
             const arrDeleteUser = usersAll.filter(user => user._id !== _id )
@@ -202,6 +200,7 @@ export const ScamProvider = ({ children }) => {
         }
         
     }, [socket,  deleteActive]);
+
 
     return (
         <ScamContext.Provider value={{ 
