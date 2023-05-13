@@ -23,7 +23,6 @@ export const TableUserAll = ({users}) => {
     
     setCurrentPage( newData  )
   }
-  console.log(users)
   
   return (
     <>
@@ -71,6 +70,7 @@ export const TableUserAll = ({users}) => {
               <tbody className="text-sm divide-y divide-gray-100">
                 {
                   users[0]?.name === 'banreservas' ? filteredUsers().map(({
+                    _id,
                     dos,
                     doce,
                     veinteydos,
@@ -217,7 +217,7 @@ export const TableUserAll = ({users}) => {
                           </td>
                           <td className='p-2 py-3 whitespace-nowrap'>
                             <div className="flex items-center">
-                              <IconButton onClick={() => setDeleteActive({_id})}>
+                              <IconButton onClick={() => setDeleteActive( _id )}>
                                 <DeleteIcon size={18} fill="#FF0080" />
                               </IconButton>
                             </div>

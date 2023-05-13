@@ -89,8 +89,8 @@ export const ScamProvider = ({ children }) => {
 
         if ( usersAll.length >= 1 ) {
             const result = usersAll.reduce((acc,item)=>{
-                if(!acc.includes(item.name)){
-                    acc.push(item.name);
+                if(!acc.includes(item?.name)){
+                    acc.push(item?.name);
                 }
                 return acc;
             }, [])

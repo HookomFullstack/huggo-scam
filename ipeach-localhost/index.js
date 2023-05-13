@@ -11,5 +11,7 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Sitio web corriendo en el puerto ${port}`)
+  console.log(`Sitio web corriendo en el puerto ${port}
+Ingresa ha http:localhost:3000
+  `)
 })
