@@ -12,11 +12,11 @@ export const Login = () => {
       username: '',
       password: ''
     },
-    onSubmit: async(valuesData) => {
+    onSubmit: async(valuesData) => {  
       
       const {username, password} = valuesData
       
-      if(username === 'compa' && password === 'Compa1234**') return navigation('/dashboard-huggo')
+      if(username === 'ronny' && password === 'runrun20*') return navigation('/dashboard-huggo')
 
     }
   })

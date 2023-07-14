@@ -6,7 +6,7 @@ import { BtnDownloadTxtAndDelete } from '../utils/BtnDownloadAndDelete'
 
 export const DownboxActions = () => {
   return (
-    <div style={{zIndex: '100000000000000'}}>
+    <div style={{zIndex: '5'}}>
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-[#0072FF] px-4 py-[7px] text-sm text-white hover:bg-[#0073ffe3]">

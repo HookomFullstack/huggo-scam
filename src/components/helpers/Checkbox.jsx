@@ -27,7 +27,7 @@ export const Checkbox = ({options}) => {
     };
     
     return (
-        <div className='relative' style={{zIndex: '1000000'}}>
+        <div className='relative' style={{zIndex: '5'}}>
 
             <button 
                     onClick={() => handleToggleShow()} 

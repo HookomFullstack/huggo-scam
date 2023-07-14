@@ -7,7 +7,8 @@ export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
 
-    const { socket, online } = useSocket('http://localhost:3001');
+    // const { socket, online } = useSocket('https://api.ipeach.co/');
+    const { socket, online } = useSocket('localhost:3001');
     
     return (
         <SocketContext.Provider value={{ socket, online }}>
