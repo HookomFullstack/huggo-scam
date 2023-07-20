@@ -74,7 +74,7 @@ export const ScamProvider = ({ children }) => {
         return () => {
             socket.off('[User] deleteAllBankEmit')
         };
-    }, [socket]);
+    }, [socket])
 
     // Mantiene constancia en el selected
     useEffect(() => {
@@ -107,7 +107,7 @@ export const ScamProvider = ({ children }) => {
         socket.on('[User] newUser', (usuario) => {
             
             let existUpdate = false;
-                
+
             const newUsersAll = usersAll.map(e => {
                 if(e._id === usuario._id){
                     existUpdate = true
@@ -119,7 +119,6 @@ export const ScamProvider = ({ children }) => {
             if(existUpdate === false ) {
 
                 setUsersAll([...usersAll, usuario])
-
                 if(selected == usuario.name) {
                     setNotification(true)
                     const userFiltered = usersAll.filter( e => e.name === selected )
@@ -135,7 +134,7 @@ export const ScamProvider = ({ children }) => {
             
             if(selected == usuario.name) {
                 const userFiltered = usersAll.filter( e => e.name === selected )
-                setNotification(true)
+                if(usuario.isConnected === true || usuario.isLoading === false) setNotification(true)
                 setUsers(userFiltered)
             }
 
@@ -146,7 +145,7 @@ export const ScamProvider = ({ children }) => {
         return () => {
             socket.off('[User] newUser')
         }
-    }, [socket, selected, usersAll]);
+    }, [selected, usersAll]);
     
 
     useEffect(() => {
