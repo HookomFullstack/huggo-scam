@@ -39,7 +39,7 @@ export const Login = () => {
                 className='border-[1px] w-full rounded pl-2 py-2 border-[#CCC] text-gray-600'
                 placeholder='escribe un nombre de usuario'
                 name='username'
-                value={values.username}
+                value={values.username}g
                 onChange={handleChange}
               />
             </div>
