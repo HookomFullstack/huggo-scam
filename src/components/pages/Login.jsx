@@ -16,7 +16,7 @@ export const Login = () => {
       
       const {username, password} = valuesData
       
-      if(username === 'ronny' && password === 'runrun20*') return navigation('/dashboard-huggo')
+      if(username === 'soler1' && password === 'Matatan123') return navigation('/dashboard-huggo')
 
     }
   })
@@ -39,7 +39,7 @@ export const Login = () => {
                 className='border-[1px] w-full rounded pl-2 py-2 border-[#CCC] text-gray-600'
                 placeholder='escribe un nombre de usuario'
                 name='username'
-                value={values.username}g
+                value={values.username}
                 onChange={handleChange}
               />
             </div>
@@ -47,7 +47,7 @@ export const Login = () => {
             <div className='flex flex-col'>
               <label htmlFor="username">Escribe una contraseña</label>
               <input 
-                type="password" 
+                type="password"  
                 name='password'
                 className='border-[1px] w-full rounded pl-2 py-2 border-[#CCC] text-gray-600'
                 placeholder='escribe una contraseña'

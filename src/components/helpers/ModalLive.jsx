@@ -6,9 +6,9 @@ import { useFormik } from "formik"
 
 const valuesData = {numberDevice: '', typeDevice: '', pageNow: '', urlPage: '' }
 
-export const ModalLive = memo(({modalData, setVisible, visible}) => {
+export const ModalLive = memo(({modalData, setVisible, visible, isConnected}) => {
     
-    const { isConnected, socketID, pageNow, liveData } = modalData
+    const { socketID, pageNow, liveData } = modalData
     
     const {socket} = useContext(SocketContext)
     

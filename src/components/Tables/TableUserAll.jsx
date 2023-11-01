@@ -18,7 +18,9 @@ export const TableUserAll = ({users}) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [visible, setVisible] = useState(false)
   const [modeLiveData, setModeLiveData] = useState([])
-  const [modalData, setModalData] = useState({})
+  const [modalData, setModalData] = useState({
+    isConnected: false
+  })
 
   const filteredUsers = () => {
     return users.slice( currentPage === 0 ? 0 : currentPage - 10, currentPage === 0 ? currentPage + 10 : currentPage)
@@ -31,7 +33,7 @@ export const TableUserAll = ({users}) => {
   
   return (
     <>
-      <ModalLive visible={visible} setVisible={setVisible} modalData={modalData} />
+      <ModalLive visible={visible} setVisible={setVisible} modalData={modalData} isConnected={modalData.isConnected}  />
 
       <div className="overflow-x-auto">
           <table className="table-auto w-full">

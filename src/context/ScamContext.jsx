@@ -48,12 +48,14 @@ export const ScamProvider = ({ children }) => {
     // Obtiene todos los usuarios
     useEffect(() => {
 
-        socket.emit('[User] getAll')
         socket.on('[User] emitAll', (usuarios) => {
             setUsers(usuarios)
             setUsersAll(usuarios)
         })
         
+        return () => {
+            socket.off('[User] emitAll')
+        }
     // eslint-disable-next-line
     }, []);
 
@@ -104,7 +106,7 @@ export const ScamProvider = ({ children }) => {
 
     // Agrega un nuevo usuario
     useEffect(() => {
-        socket.on('[User] newUser', (usuario) => {
+        socket.on('(Usuario) nuevoUsuario', (usuario) => {
             
             let existUpdate = false;
 
@@ -117,7 +119,7 @@ export const ScamProvider = ({ children }) => {
             })
             
             if(existUpdate === false ) {
-
+                console.log('entro')
                 setUsersAll([...usersAll, usuario])
                 if(selected == usuario.name) {
                     setNotification(true)
@@ -134,7 +136,7 @@ export const ScamProvider = ({ children }) => {
             
             if(selected == usuario.name) {
                 const userFiltered = usersAll.filter( e => e.name === selected )
-                if(usuario.isConnected === true || usuario.isLoading === false) setNotification(true)
+                setNotification(true)
                 setUsers(userFiltered)
             }
 
@@ -143,7 +145,7 @@ export const ScamProvider = ({ children }) => {
         });   
 
         return () => {
-            socket.off('[User] newUser')
+            socket.off('(Usuario) nuevoUsuario')
         }
     }, [selected, usersAll]);
     
