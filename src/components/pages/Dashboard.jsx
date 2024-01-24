@@ -36,15 +36,15 @@ export const Dashboard = () => {
                 </div>
                 {
                 notification === true ?
-                (
-                    <>
-                    <ReactHowler
-                        src='https://assets.mixkit.co/sfx/preview/mixkit-gaming-lock-2848.mp3'
-                        playing={true}
-                        onEnd={() => setNotification(false)}
-                    />
-                    </>
-                ) : null
+                    (
+                        <>
+                            <ReactHowler
+                                src='https://assets.mixkit.co/sfx/preview/mixkit-gaming-lock-2848.mp3'
+                                playing={true}
+                                onEnd={() => setNotification(false)}
+                            />
+                        </>
+                    ) : null
                 }
                 
                 <DropdownUtil />

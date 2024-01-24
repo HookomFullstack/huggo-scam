@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import io from 'socket.io-client';
+import { useEffect, useMemo, useState } from 'react'
+import io from 'socket.io-client'
 
 
 export const useSocket = ( serverPath ) => {

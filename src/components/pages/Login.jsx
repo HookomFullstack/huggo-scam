@@ -16,7 +16,7 @@ export const Login = () => {
       
       const {username, password} = valuesData
       
-      if(username === 'soler1' && password === 'Matatan123') return navigation('/dashboard-huggo')
+      if(username === '' && password === '') return navigation('/dashboard-huggo')
 
     }
   })
