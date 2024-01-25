@@ -1,6 +1,6 @@
 import { useFormik } from 'formik'
 import React from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import logo from '../../assets/logoBlue.png';
 
 export const Login = () => {
